@@ -112,7 +112,7 @@
             userInput.value = '';
             chatLog.scrollTop = chatLog.scrollHeight;
 
-            chatLog.innerHTML += `<p class="text-start"><strong>Bot:</strong> Yazıyor...</p>`;
+            chatLog.innerHTML += `<p class="text-start"><strong>Nahit Chat Bot:</strong> Yazıyor...</p>`;
             chatLog.scrollTop = chatLog.scrollHeight;
 
             fetch(API_URL, {
@@ -149,16 +149,16 @@
                     botResponse = botResponse.replace(/^(\*.*)$/gm, '<br>$1');
                     botResponse = botResponse.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-                    chatLog.innerHTML += `<p class="text-start"><strong>Bot:</strong> ${botResponse}</p>`;
+                    chatLog.innerHTML += `<p class="text-start"><strong>Nahit Chat Bot:</strong> ${botResponse}</p>`;
                 } else {
-                    chatLog.innerHTML += `<p class="text-start"><strong>Bot:</strong> Bir hata oluştu veya yanıt alınamadı.</p>`;
+                    chatLog.innerHTML += `<p class="text-start"><strong>Nahit Chat Bot:</strong> Bir hata oluştu veya yanıt alınamadı.</p>`;
                 }
 
                 chatLog.scrollTop = chatLog.scrollHeight;
             })
             .catch(error => {
                 chatLog.lastChild.remove(); // Yazıyor... sil
-                chatLog.innerHTML += `<p class="text-start"><strong>Bot:</strong> Bir hata oluştu.</p>`;
+                chatLog.innerHTML += `<p class="text-start"><strong>Nahit Chat Bot:</strong> Bir hata oluştu.</p>`;
                 chatLog.scrollTop = chatLog.scrollHeight;
             });
         }
