@@ -87,6 +87,7 @@
                 <div class="modal-body">
                     <p>Bu yapay zeka sohbet uygulaması, Google'ın Gemini API'si kullanılarak geliştirilmiştir.</p>
                     <p>Sorularınızı sorun ve yapay zeka ile sohbet edin.</p>
+					<p>Yapay Zeka Şuan Betatadır Sıkıntıları Olabilir.</p>
                     <p>Geliştirici: Kerem Sait Özgan</p>
                 </div>
                 <div class="modal-footer">
@@ -102,7 +103,7 @@
         const sendButton = document.getElementById('send-button');
         const clearButton = document.getElementById('clear-button');
         const API_KEY = 'AIzaSyANPNZGAbgTA3e1MBgPClNn08-tFXGOVWU'; // Güvenlik riski!
-        const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent';
+        const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
         function sendMessage() {
             const message = userInput.value;
