@@ -46,27 +46,62 @@
             background-color: #343a40;
         }
         #logo {
-            width: 100px; /* Logonun genişliğini ayarlayın */
-            height: auto; /* Logonun yüksekliğini otomatik olarak ayarlayın */
+            width: 100px;
+            height: auto;
+        }
+        .about-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .modal-content {
+            background-color: #343a40;
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="text-center mb-4">
-            <img id="logo" src="logo.png" alt="Logo"> </div>
+            <img id="logo" src="logo.png" alt="Logo">
+        </div>
         <h1 class="text-center mb-4">Nahit Chat Bot</h1>
+        <button type="button" class="btn btn-info about-button" data-bs-toggle="modal" data-bs-target="#aboutModal">
+            <i class="bi bi-info-circle"></i> Hakkında
+        </button>
         <div id="chat-log"></div>
         <div class="input-group">
             <input type="text" id="user-input" class="form-control" placeholder="Mesajınızı girin...">
             <button id="send-button" class="btn btn-primary">Gönder</button>
-            <button id="clear-button" class="btn btn-secondary">Temizle</button> </div>
+            <button id="clear-button" class="btn btn-secondary">Temizle</button>
+        </div>
     </div>
+
+    <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aboutModalLabel">Hakkında</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bu yapay zeka sohbet uygulaması, Google'ın Gemini API'si kullanılarak geliştirilmiştir.</p>
+                    <p>Sorularınızı sorun ve yapay zeka ile sohbet edin.</p>
+                    <p>Geliştirici: Kerem Sait ÖZGAN</p>
+                    <p>😊</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const chatLog = document.getElementById('chat-log');
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
-        const clearButton = document.getElementById('clear-button'); // Temizle butonu
+        const clearButton = document.getElementById('clear-button');
         const API_KEY = 'AIzaSyANPNZGAbgTA3e1MBgPClNn08-tFXGOVWU'; // Güvenlik riski!
         const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent';
 
@@ -102,7 +137,6 @@
                 if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
                     let botResponse = data.candidates[0].content.parts[0].text;
 
-                    // Tablo biçimlendirmesi
                     if (botResponse.includes('| Özellik |')) {
                         botResponse = botResponse.replace(/\|(.*)\|/g, (match, p1) => {
                             const columns = p1.split('|').map(col => `<th>${col.trim()}</th>`).join('');
@@ -111,16 +145,9 @@
                         botResponse = `<table>${botResponse}</table>`;
                     }
 
-                    // Python kod bloklarını biçimlendir
                     botResponse = botResponse.replace(/`python\s*([\s\S]*?)`/g, '<pre><code class="language-python">$1</code></pre>');
-
-                    // Genel kod bloklarını biçimlendir
                     botResponse = botResponse.replace(/`(.*?)`/gs, '<pre><code>$1</code></pre>');
-
-                    // * ile başlayan satırları yeni satırlara ayır
                     botResponse = botResponse.replace(/^(\*.*)$/gm, '<br>$1');
-
-                    // **kalınlaştırma**
                     botResponse = botResponse.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
                     chatLog.innerHTML += `<p class="text-start"><strong>Bot:</strong> ${botResponse}</p>`;
@@ -145,11 +172,11 @@
             }
         });
 
-        // Temizle butonuna tıklama olayı ekleme
         clearButton.addEventListener('click', () => {
-            chatLog.innerHTML = ''; // Sohbet geçmişini temizle
+            chatLog.innerHTML = '';
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </body>
 </html>
